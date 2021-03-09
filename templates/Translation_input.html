@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+ <title>Translation</title>
+ <body>
+  <h1>Translation</h1>
+  <p>This program can translate nucleotide sequences in fasta\fastq
+    file to amino acid sequence.</p>
+  <p>This translation will start from the first nucleotide in sequence.
+    If sequence length is not a multiple of three, the nucleotides that
+    cannot form a codon at the end of the sequence will be discarded.</p>
+
+  <form method="POST">
+     <p>Input nuceotide sequence</p>
+     <input name="seq">
+     <input type="submit">
+  </form>
+
+  <form id="upload-form"  method="POST" enctype="multipart/form-data" >
+  　　　<input type="file" id="upload" name="file" /> <br />
+  　　　<input type="submit" value="Upload" />
+  </form>
+
+ </body>
+</html>
