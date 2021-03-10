@@ -1,10 +1,38 @@
 <!DOCTYPE html>
 
 <html>
- <title>GC content calculation</title>
- <body>
-  <h1>GC content calculation</h1>
-  <p>GC content is </p>
-  <p>{{content|safe}}</p>
- </body>
+
+ <head>
+   <title>GC content calculation</title>
+ </head>
+
+  <body style="line-height: 2.0;">
+
+    <h1 style="background-color: powderblue">GC content calculation</h1>
+    <p style="font-size:110%;"> GC\GC1\GC2\GC3 contents for each sequence are showed in table below.</p>
+    <p style="font-size:110%;">The first row is the GC-content of combined one sequence of all sequences in fasta\fastq file. </p>
+
+    <div style="background-color: aliceblue;">
+      <table>
+        <thead>
+          <tr>
+            {% for i in header %}
+              <th>{{ i }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in content %}
+          <tr>
+            {% for j in i %}
+              <td>{{ j }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </body>
+
 </html>

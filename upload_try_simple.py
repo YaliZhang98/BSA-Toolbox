@@ -24,7 +24,7 @@ def file_fasta(filename):
 def file_fastq(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in fastq_format
 
-def sequence(fasta):
+def sequence_fa(fasta):
     seq_dic = {}
     seq = ''
     seq_id = ''
@@ -65,6 +65,16 @@ def sequence_fq(fastq):
     fq_seq_dic[fq_id] = fq_seq
     
     return(fq_seq_dic)
+
+
+def to_one_seq(seq_dic):
+    seq = ''
+    for key in seq_dic.keys():
+        seq += seq_dic[key]
+    return(seq)
+
+
+
 
 
 # toolbox catalog page --------------------------------------------------------
@@ -125,12 +135,34 @@ def GC_content_all(seq_dic):
         GC_dic[key]['GC2'] = GC123_c[1]
         GC_dic[key]['GC3'] = GC123_c[2]
             
-        content = 'seqID\tGC(%)\tGC1(%)\tGC2(%)\tGC3(%)'
-        for key in GC_dic.keys():
-            content += '\n{}\t{}\t{}\t{}\t{}'.format(key,GC_dic[key]['GC'],GC_dic[key]['GC1'],GC_dic[key]['GC2'],GC_dic[key]['GC3'])
+    content_all = []    
+    for key in GC_dic.keys():
+        content = []
+        content.append(key)
+        content.append(GC_dic[key]['GC'])
+        content.append(GC_dic[key]['GC1'])
+        content.append(GC_dic[key]['GC2'])
+        content.append(GC_dic[key]['GC3'])
+        content_all.append(content)
             
-        content = content.replace('\n','<br/>')    
-        return content
+    return content_all
+
+
+
+def GC_one_seq(seq):
+
+    GC_c = GC_content(seq)
+    GC123_c = GC123_content(seq)  
+    content_all = []
+    content = []
+    content.append('one_seq')
+    content.append(GC_c)
+    content.append(GC123_c[0])
+    content.append(GC123_c[1])
+    content.append(GC123_c[2])
+    content_all.append(content)
+    
+    return content_all
 
 
 # web part 
@@ -144,33 +176,39 @@ def show_GC_content() :
     
     if request.method == 'POST':
     
-        
         seq = request.form.get('seq')
-        file = request.files.get('file')     
+        file = request.files.get('file')   
+        header = ['seqID','GC(%)','GC1(%)','GC2(%)','GC3(%)']
        
-       
-        if file and file_fasta(file.filename):                
-            seq_dic = sequence(file)
-            content = GC_content_all(seq_dic)
-            return render_template('GC_content.html',content=content)
+        if file and file_fasta(file.filename):
+            if seq:
+                return render_template('GC_content_input.html') 
+            else:
+                seq_dic = sequence_fa(file)
+                one_seq = to_one_seq(seq_dic)
+                content = GC_one_seq(one_seq)
+                content_2 = GC_content_all(seq_dic)
+                content.extend(content_2)
+                return render_template('GC_content.html', content=content, header=header)
         
-        if file and file_fastq(file.filename):                
-            seq_dic = sequence_fq(file)
-            content = GC_content_all(seq_dic)
-            return render_template('GC_content.html',content=content)
+    
+        if file and file_fastq(file.filename):    
+            if seq:
+                return render_template('GC_content_input.html') 
+            else:            
+                seq_dic = sequence_fq(file)
+                one_seq = to_one_seq(seq_dic)
+                content = GC_one_seq(one_seq)
+                content_2 = GC_content_all(seq_dic)
+                content.extend(content_2)
+                return render_template('GC_content.html',content=content, header=header)
         
         if seq :
-             GC_c = GC_content(seq)
-             GC123_c = GC123_content(seq)
-             GC_dic = {}  
-             GC_dic['GC'] = GC_c # add last sequence information into dictionary
-             GC_dic['GC1'] = GC123_c[0]
-             GC_dic['GC2'] = GC123_c[1]
-             GC_dic['GC3'] = GC123_c[2]
-             content = 'GC(%)\tGC1(%)\tGC2(%)\tGC3(%)\n{}\t{}\t{}\t{}'.format(GC_dic['GC'],GC_dic['GC1'],GC_dic['GC2'],GC_dic['GC3'])
-             
-             content = content.replace('\n','<br/>')
-             return render_template('GC_content.html',content=content)
+            if file:
+                return render_template('GC_content_input.html') 
+            else:            
+                 content = GC_one_seq(seq)
+                 return render_template('GC_content.html',content=content, header=header)
    
     return render_template('GC_content_input.html') 
 
@@ -208,9 +246,15 @@ def length_detection(seq_dic):
             else:
                 seq_length_min += key
     
-    content = 'character\tlength(pb)\tseqID\naverage_length\t{}\t-\nmaximum_lengths\t{}\t{}\nminimum_lengths\t{}\t{}'.format('%.2f'%length_avg,'%.2f'%length_max,
-                                                                                        seq_length_max,'%.2f'%length_min, seq_length_min)
-    content = content.replace('\n','<br/>')
+    length_avg = '%.2f'%length_avg
+    length_max = '%.2f'%length_max
+    
+    length_min = '%.2f'%length_min
+       
+    content = [['average_length',length_avg,'-']]
+    content.extend([['maximum_length',length_max,seq_length_max]])
+    content.extend([['minimum_length',length_min, seq_length_min]])
+  
     return content
 
 
@@ -225,16 +269,17 @@ def length() :
     
     if request.method == 'POST':
         file = request.files.get('file')     
+        header = ['character','length(pb)','seqID']
        
         if file and file_fasta(file.filename):                
-            seq_dic = sequence(file)
+            seq_dic = sequence_fa(file)
             content = length_detection(seq_dic)
-            return render_template('Length_detection.html',content=content)
+            return render_template('Length_detection.html',content=content, header=header)
         
         if file and file_fastq(file.filename):                
             seq_dic = sequence_fq(file)
             content = length_detection(seq_dic)
-            return render_template('Length_detection.html',content=content)
+            return render_template('Length_detection.html',content=content, header=header)
    
     return render_template('Length_detection_input.html') 
 
@@ -252,12 +297,15 @@ def comp_rev(seq):
     for nu in seq:
         if nu == 'A':
             seq_comp += 'T'
-        if nu == 'T':
+        elif nu == 'T':
             seq_comp += 'A'
-        if nu == 'C':
+        elif nu == 'C':
             seq_comp += 'G'
-        if nu == 'G':
+        elif nu == 'G':
             seq_comp += 'C'
+        else:
+            seq_comp += '?'
+        
     seq_rev = seq_comp[::-1]
     return(seq_rev)
 
@@ -288,20 +336,28 @@ def reversed_complements() :
         seq = request.form.get('seq')
         file = request.files.get('file')     
        
-        if file and file_fasta(file.filename):                
-            seq_dic = sequence(file)
-            content = comp_rev_content(seq_dic)
-    
-            return render_template('Reversed_complements.html',content=content)
+        if file and file_fasta(file.filename):           
+            if seq:
+                return render_template('Reversed_complements_input.html') 
+            else:  
+                seq_dic = sequence_fa(file)
+                content = comp_rev_content(seq_dic)
+                return render_template('Reversed_complements.html',content=content)
         
-        if file and file_fastq(file.filename):                
-            seq_dic = sequence_fq(file)
-            content = comp_rev_content(seq_dic)
-            return render_template('Reversed_complements.html',content=content)
+        if file and file_fastq(file.filename):
+            if seq:
+                return render_template('Reversed_complements_input.html') 
+            else:                 
+                seq_dic = sequence_fq(file)
+                content = comp_rev_content(seq_dic)
+                return render_template('Reversed_complements.html',content=content)
    
         if seq :
-             content = comp_rev(seq)
-             return render_template('Reversed_complements.html',content=content)
+            if file:
+                return render_template('Reversed_complements_input.html') 
+            else: 
+                content = comp_rev(seq)
+                return render_template('Reversed_complements.html',content=content)
    
     return render_template('Reversed_complements_input.html') 
 
@@ -375,20 +431,29 @@ def translation_output() :
         seq = request.form.get('seq')
         file = request.files.get('file')     
        
-        if file and file_fasta(file.filename):                
-            seq_dic = sequence(file)
-            content = translation_content(seq_dic)
-            return render_template('Translation.html',content=content)
+        if file and file_fasta(file.filename):           
+            if seq:
+                return render_template('Translation_input.html') 
+            else:
+                seq_dic = sequence_fa(file)
+                content = translation_content(seq_dic)
+                return render_template('Translation.html',content=content)
         
-        if file and file_fastq(file.filename):                
-            seq_dic = sequence_fq(file)
-            content = translation_content(seq_dic)
-            return render_template('Translation.html',content=content)
-   
+        if file and file_fastq(file.filename):     
+            if seq:
+                return render_template('Translation_input.html') 
+            else:
+                seq_dic = sequence_fq(file)
+                content = translation_content(seq_dic)
+                return render_template('Translation.html',content=content)
+       
         if seq :
-             content = translation(seq)
-             return render_template('Translation.html',content=content)
-   
+            if file:
+                return render_template('Translation_input.html') 
+            else:
+                content = translation(seq)
+                return render_template('Translation.html',content=content)
+       
     return render_template('Translation_input.html') 
 
 
@@ -400,34 +465,6 @@ import base64
 
 fasta = open('test.fasta','r')
 
-def one_fa(file):
-    
-    seq = ''
-    
-    for line in file:
-        line = line.decode('utf-8')
-        line = line.strip()
-        if line.startswith(">"): # find id line
-            continue
-        else:
-            line = line.upper()
-            seq += line # parse sequence in one line
-    return(seq)
-
-
-def one_fq(file):
-
-    fq_seq = ''
-    
-    count = 0
-    for line in file:
-        line = line.decode('utf-8')
-        line = line.strip()
-        count += 1
-        if count%4 == 2:
-            line = line.upper()
-            fq_seq += line
-    return(fq_seq)
 
 
 def gc_plot(one_seq,window,step):
@@ -481,7 +518,8 @@ def gc_figure():
             if seq:
                 return render_template('GC_figure_input.html') 
             else:
-                one_seq = one_fa(file)
+                seq_dic = sequence_fa(file)
+                one_seq = to_one_seq(seq_dic)
                 plot_url = gc_plot(one_seq,window,step)
                 return render_template('GC_figure.html',plot_url=plot_url)
         
@@ -490,7 +528,8 @@ def gc_figure():
             if seq:
                 return render_template('GC_figure_input.html') 
             else:
-                one_seq = one_fq(file)
+                seq_dic = sequence_fq(file)
+                one_seq = to_one_seq(seq_dic)
                 plot_url = gc_plot(one_seq,window,step)
                 return render_template('GC_figure.html',plot_url=plot_url)
         
@@ -507,8 +546,7 @@ def gc_figure():
      return render_template('GC_figure_input.html') 
 
 
-
-
+# next function ... ------------------------------------------------------------------------
 
 
 

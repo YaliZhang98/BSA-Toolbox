@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 
 <html>
- <title>Length detection</title>
+ <head>
+   <title>Length detection</title>
+ </head>
+
  <body>
-  <h1>Length detection</h1>
-  <p>This program can find average\maximum\minimun lengths of sequences in
-    fasta\fastq file.</p>
+
+  <div style="line-height: 2.0;">
+    <h1 style="background-color: powderblue" >Length detection</h1>
+    <p style="font-size:120%;">This program can find average\maximum\minimun lengths of sequences in
+      fasta\fastq file.</p><br />
+  </div>
 
   <form id="upload-form"  method="POST" enctype="multipart/form-data" >
-  　　　<input type="file" id="upload" name="file" /> <br />
-  　　　<input type="submit" value="Upload" />
+
+    <div style="background-color: aliceblue;">
+      <p> Upload a fasta or fastq file with sequences (Allowed file format: fasta file - fasta\fna\fa; fastq file - fastq\fq) </p>
+      <input type="file" id="upload" name="file" /> <br /><br />
+      <p> <b>Tips</b>: Both of uppercase or lowercase nucleotide in the input file are allowed.
+        <br />
+    </div>
+
+    <br />
+    <input type="reset" value="Reset" style="font-size:100%;">
+    <input type="submit" value="Submit" style="font-size:100%;"/> <br />
+    <p>If you need change the input values, click the "Reset" button,
+   the form-data will be reset to the blank.</p>
+
   </form>
 
  </body>
