@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <title>GC content plot</title>
   </head>
@@ -12,6 +12,9 @@
         size and step.</p>
       <p style="font-size:100%;"> <b>Tips</b>: If there is no line in the figure, the reason may be that the window
         size is longer than the sequence length.</p>
+
+        <a href="data:image/png;base64, {{ plot_url }}" download="GC-plot.png" >download figure</a>
+        <br /><br />
 
       <img src="data:image/png;base64, {{ plot_url }}" >
 

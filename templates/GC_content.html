@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
  <head>
    <title>GC content calculation</title>
@@ -11,6 +11,9 @@
     <h1 style="background-color: powderblue">GC content calculation</h1>
     <p style="font-size:110%;"> GC\GC1\GC2\GC3 contents for each sequence are showed in table below.</p>
     <p style="font-size:110%;">The first row is the GC-content of combined one sequence of all sequences in fasta\fastq file. </p>
+
+    <a href="{{ url_for('static', filename='GC_content.tsv') }}" download="GC-content.tsv" >download file</a>
+    <br /><br />
 
     <div style="background-color: aliceblue;">
       <table>

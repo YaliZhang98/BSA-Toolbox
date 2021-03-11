@@ -145,6 +145,11 @@ def GC_content_all(seq_dic):
         content.append(GC_dic[key]['GC3'])
         content_all.append(content)
             
+    output = open('./static/GC_content.tsv','a')
+    for key in GC_dic.keys():
+        print('{}\t{}\t{}\t{}\t{}'.format(key,GC_dic[key]['GC'],GC_dic[key]['GC1'],GC_dic[key]['GC2'],GC_dic[key]['GC3']),file=output)
+    output.close()
+        
     return content_all
 
 
@@ -162,6 +167,11 @@ def GC_one_seq(seq):
     content.append(GC123_c[2])
     content_all.append(content)
     
+    output = open('./static/GC_content.tsv','w')
+    print('seqID\tGC(%)\tGC1(%)\tGC2(%)\tGC3(%)',file=output)
+    print('one_seq\t{}\t{}\t{}\t{}'.format(GC_c,GC123_c[0],GC123_c[1],GC123_c[2]),file=output)
+    output.close()
+    
     return content_all
 
 
@@ -170,6 +180,7 @@ def GC_one_seq(seq):
 @app.route('/GC-content')
 def GC_content_input():
     return render_template('GC_content_input.html')
+
 
 @app.route('/GC-content', methods=['POST'])
 def show_GC_content() :
@@ -255,6 +266,13 @@ def length_detection(seq_dic):
     content.extend([['maximum_length',length_max,seq_length_max]])
     content.extend([['minimum_length',length_min, seq_length_min]])
   
+    output = open('./static/length_detection.tsv','w')
+    print('character\tlength(pb)\tseqID',file=output)
+    print('average_length\t{}\t-'.format(length_avg),file=output)
+    print('maximum_length\t{}\t{}'.format(length_max,seq_length_max),file=output)
+    print('minimum_length\t{}\t{}'.format(length_min, seq_length_min),file=output)
+    output.close()
+  
     return content
 
 
@@ -307,6 +325,12 @@ def comp_rev(seq):
             seq_comp += '?'
         
     seq_rev = seq_comp[::-1]
+    
+    output = open('./static/reversed_complements.fasta','w')
+    print('>sequence',file=output)
+    print(seq_rev,file=output)
+    output.close()
+    
     return(seq_rev)
 
 def comp_rev_content(seq_dic):
@@ -317,7 +341,11 @@ def comp_rev_content(seq_dic):
     content=''
     for key in seq_rev.keys():
         content += '{}\n{}\n'.format(key,seq_rev[key])
-        
+    
+    output = open('./static/reversed_complements.fasta','w')
+    print(content,file=output)
+    output.close()
+    
     content = content.replace('\n','<br/>')    
     return content
 
@@ -402,6 +430,12 @@ def translation(seq):
             aa_seq += aa
         else:
             aa_seq += '-'
+    
+    output = open('./static/translation.fasta','w')
+    print('>sequence',file=output)
+    print(aa_seq,file=output)
+    output.close()
+    
     return(aa_seq)
     
 
@@ -412,6 +446,10 @@ def translation_content(seq_dic):
     content = ''
     for key in aa_dic.keys():
         content += '{}\n{}\n'.format(key,aa_dic[key])
+    
+    output = open('./static/translation.fasta','w')
+    print(content,file=output)
+    output.close()
     
     content = content.replace('\n','<br/>')    
     return content
@@ -503,6 +541,7 @@ def gc_plot(one_seq,window,step):
 @app.route('/GC-figure')
 def gc_figure_input():
     return render_template('GC_figure_input.html')
+
 
 @app.route('/GC-figure', methods=['POST'])
 def gc_figure():
