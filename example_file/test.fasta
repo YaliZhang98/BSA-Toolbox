@@ -1,0 +1,16 @@
+>1	length=10	GC=0.2
+atgat
+aaaaa
+>2	length=15	GC=0.2
+aaaaa
+atggg
+ttttt
+>3	length=20	GC=0.3
+ccctt
+ggaaaaaaaa
+caatt
+>4	length=25	GC=0.4
+cccccccgggatatatatatatata
+>5	length=10	GC=0.2
+atgat
+aaaaa

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
  <head>
    <title>Reversed complements</title>
@@ -10,10 +10,11 @@
 
     <div style="line-height: 2.0;">
       <h1 style="background-color: powderblue" >Reversed complements</h1>
-      <p style="font-size:120%;">This program can find reversed complements sequence of pure sequence or sequences in
-        fasta\fastq file.</p>
+      <p style="font-size:120%;">This program can find reversed complements sequence
+        of pure sequence or sequences in fasta\fastq file.</p>
     </div>
 
+<!-- get submitted sequence or file -->
     <form id="upload-form"  method="POST" enctype="multipart/form-data" >
 
       <div style="background-color: aliceblue;">
@@ -21,13 +22,15 @@
         <input name="seq">
         <br />
         <br />
-        <p> Or upload a fasta or fastq file with nucleotide sequences (Allowed file format: fasta file - fasta\fna\fa; fastq file - fastq\fq) </p>
+        <p> Or upload a fasta or fastq file with nucleotide sequences (Allowed file
+          format: fasta file - fasta\fna\fa; fastq file - fastq\fq) </p>
         <input type="file" id="upload" name="file" /> <br />  <br />
         <p> <b>Tips</b>: Both of uppercase or lowercase nucleotide in the input text\file are allowed.
           <br />
       </div>
 
       <br />
+      <!-- add a reset botton that user can reset the value -->
       <input type="reset" value="Reset" style="font-size:100%;">
       <input type="submit" value="Submit" style="font-size:100%;"/> <br />
       <p>If you need change the input values, click the "Reset" button,

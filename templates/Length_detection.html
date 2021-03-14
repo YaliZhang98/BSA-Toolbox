@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
   <head>
    <title>Length detection </title>
@@ -14,19 +14,23 @@
     <p style="font-size:110%;"> The first column is character, second column is the length of that character.
   The ID of the shortest or longest sequence will also be marked in the third column </p>
 
+<!-- set a link that can download output results on the web page -->
   <a href="{{ url_for('static', filename='length_detection.tsv') }}" download="length_detection.tsv" >download file</a>
   <br /><br />
 
+<!-- show results of this function on the web page -->
     <div style="background-color: aliceblue;">
       <table>
         <thead>
           <tr>
+            <!-- add the header of table through loop -->
             {% for i in header %}
               <th>{{ i }}</th>
             {% endfor %}
           </tr>
         </thead>
         <tbody>
+          <!-- add each row of results into the table through loop -->
           {% for i in content %}
           <tr>
             {% for j in i %}

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
   <head>
     <title>Translation</title>
@@ -17,9 +17,11 @@
       a combination of three nucleotides is not a codon, this will appear as '-'.
       Stop codons appear as '*' </p>
 
+<!-- set a link that can download output results on the web page -->
       <a href="{{ url_for('static', filename='translation.fasta') }}" download="translation.fasta" >download file</a>
       <br /><br />
 
+<!-- show results of this function on the web page -->
     <p style="background-color: aliceblue;">{{content|safe}}</p>
 
    </body>

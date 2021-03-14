@@ -1,6 +1,0 @@
->1
-atcgatcgatcgatcg
->2
-atcgatcgatcgatcg
->3
-atcgatcgatcgatcg

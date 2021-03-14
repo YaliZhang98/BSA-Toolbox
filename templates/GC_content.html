@@ -12,19 +12,23 @@
     <p style="font-size:110%;"> GC\GC1\GC2\GC3 contents for each sequence are showed in table below.</p>
     <p style="font-size:110%;">The first row is the GC-content of combined one sequence of all sequences in fasta\fastq file. </p>
 
+<!-- set a link that can download output results on the web page -->
     <a href="{{ url_for('static', filename='GC_content.tsv') }}" download="GC-content.tsv" >download file</a>
     <br /><br />
 
+<!-- show results of this function on the web page -->
     <div style="background-color: aliceblue;">
       <table>
         <thead>
           <tr>
+            <!-- add the header of table through loop -->
             {% for i in header %}
               <th>{{ i }}</th>
             {% endfor %}
           </tr>
         </thead>
         <tbody>
+          <!-- add each row of results into the table through loop -->
           {% for i in content %}
           <tr>
             {% for j in i %}

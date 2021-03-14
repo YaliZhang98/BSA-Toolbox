@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
  <head>
    <title>GC content plot</title>
@@ -11,13 +11,15 @@
 
     <div style="line-height: 2.0;">
       <h1 style="background-color: powderblue" >GC_content plot</h1>
-      <p style="font-size:110%;">This program can plot GC content over a sequence where the user can define window
-        size and step.</p>
-      <p style="font-size:110%;"> <b>Tips</b>: User can input a pure nucleotide sequence or upload a fasta\fastq file.
-          All nucleotide sequences in fasta\fastq file will be combined into one sequence and GC-content
-          plot is result of that one sequence. Both of uppercase or lowercase nucleotide in the input text\file are allowed.</p>
+      <p style="font-size:110%;">This program can plot GC content over a sequence
+        where the user can define window size and step.</p>
+      <p style="font-size:110%;"> <b>Tips</b>: User can input a pure nucleotide
+        sequence or upload a fasta\fastq file. All nucleotide sequences in fasta\fastq
+        file will be combined into one sequence and GC-content plot is result of that
+        one sequence. Both of uppercase or lowercase nucleotide in the input text\file are allowed.</p>
     </div>
 
+<!-- get submitted sequence or file -->
     <form id="upload-form"  method="POST" enctype="multipart/form-data" >
 
       <div style="background-color: aliceblue;">
@@ -25,7 +27,8 @@
         <input name="seq">
         <br />
         <br />
-        <p> Or upload a fasta or fastq file with nucleotide sequences (Allowed file format: fasta file - fasta\fna\fa; fastq file - fastq\fq) </p>
+        <p> Or upload a fasta or fastq file with nucleotide sequences (Allowed file
+          format: fasta file - fasta\fna\fa; fastq file - fastq\fq) </p>
         <input type="file" id="upload" name="file" /> <br />  <br />
 
         <p>Window size:</p>
@@ -36,6 +39,7 @@
       </div>
 
       <br />
+      <!-- add a reset botton that user can reset the value -->
       <input type="reset" value="Reset" style="font-size:100%;">
       <input type="submit" value="Submit" style="font-size:100%;"/> <br />
       <p>If you need change the input values, click the "Reset" button,

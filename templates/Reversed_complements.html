@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
  <head>
    <title>Reversed complements</title>
@@ -13,9 +13,11 @@
      of pure sequence or sequences in fasta\fastq file.</p>
    <p style="font-size:100%;"> <b>Tips</b>: If there is '?' in the sequence, that means this character in the original sequence is not belong to nucleotide 'ATCG'.</p>
 
+<!-- set a link that can download output results on the web page -->
    <a href="{{ url_for('static', filename='reversed_complements.fasta') }}" download="reversed_complements.fasta" >download file</a>
    <br /><br />
 
+<!-- show results of this function on the web page -->
     <p style="background-color: aliceblue;">{{content|safe}}</p>
 
   </body>
