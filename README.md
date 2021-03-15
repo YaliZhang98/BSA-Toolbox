@@ -9,7 +9,7 @@ There are five different functions in this toolbox:
 3) Reversed complement of nucleotide sequences. In this function, reversed complementary sequence of each nucleotide sequence in the uploaded file will be found respectively. All reversed complements will be output in a fasta format file.  
 4) Translation of nucleotide sequence. In this function, all nucleotide sequence in the uploaded file will be translated to corresponding amino acid sequence separately. All amino acid sequences will be output in a fasta format file.  
 5) GC content plot. In this function, all sequences in the upload file will be merged into one sequence, and the GC content changes will be ploted over this one sequence. The window size and step will be defined by user.  
-  
+
 ## Files included
 In this application, there are nultiple files:  
 1) A python script that can activate web application.  
@@ -38,11 +38,11 @@ cd miniconda3/
 cd etc
 cd profile.d/
 pwd # find the route of conda installed
-export PATH=route:$PATH # add the route into your ~/.bashrc folder so that we can use it anywhere. eg.export PATH=/home/inf-32-2020/miniconda3/etc/profile.d:$PATH
+export PATH=route:$PATH # add the route into your ~/.bashrc folder so that we can use it anywhere.
 source ~/.bashrc
 
 conda -V # it is success if there is a version of conda
-```   
+```
 #### Packages installation
 Here will install Flask used in python for building web applications. The  numpy required for calculation in python. And the matplotlib needed for plotting in python.  
 ```shell
