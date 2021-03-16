@@ -591,9 +591,10 @@ def translation_output() :
 
 # import some function that can help to draw the figure
 import matplotlib.pyplot as plt
+import matplotlib
 import io
 import base64
-
+matplotlib.use('Agg')
 
 # function that can find the GC content plot
 def gc_plot(one_seq,window,step):
@@ -620,7 +621,7 @@ def gc_plot(one_seq,window,step):
     plt.title('GC-content') # add the title of figure
     plt.xlabel('position(bp) on sequence') # add the x lable
     plt.ylabel('GC-content') # add the y lable
-    plt.savefig(img,formate='png') # save the img in memory
+    plt.savefig(img) # save the img in memory
     img.seek(0) # back to the first frame of the figure
     
     # read figure from bytes data
