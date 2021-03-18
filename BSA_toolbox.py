@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
- Title: sequence_analysis_toolbox.py
+ Title: BSA_toolbox.py
  Date: 2021-03-15
  Author: Yali Zhang 
  
@@ -10,7 +10,7 @@
      fastq file or a pure nucleotide sequence submitted by users, and then performs 
      different analysis and functions on nucleotide sequences. 
 
-    There are five different functions in this toolbox:
+    There are five different functions in BSA_toolbox:
     
     1) GC content calculation. In this function, GC content of each sequence in the 
     uploaded file will be calculated separately. In additon, the total GC content 
@@ -34,7 +34,7 @@
     sequence. The window size and step will be defined by user.
      
  Usage:
-     python sequence_analysis_toolbox.py
+     python BSA_toolbox.py
      Ctrl+click to open the web page.
      Ctrl+c to stop the program
 """

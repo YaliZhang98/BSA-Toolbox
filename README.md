@@ -1,18 +1,18 @@
-# Sequence Analysis Toolbox
+# BSA-Toolbox
 
 ## Introduction
 In this program, Flask, a popular framework in python is used to build a web application. This application is a toolbox that can get a uploaded fasta or fastq file or a pure nucleotide sequence submitted by users, and then performs different analysis and functions on nucleotide sequences.  
 
-There are five different functions in this toolbox:  
+There are five different functions in BSA-toolbox:  
 1) GC content calculation. In this function, GC content of each sequence in the uploaded file will be calculated separately. In addition, the total GC content of all nucleotide sequences in file will be calculated as well.  
 2) Sequence length detection. In this function, the maximum and minimum length of sequences in uploaded file will be found, and the specific sequence with the longest and shortest length also will be pointed at the same time. In addition, the average length of all sequences in file will be calculated.  
 3) Reversed complement of nucleotide sequences. In this function, reversed complementary sequence of each nucleotide sequence in the uploaded file will be found respectively. All reversed complements will be output in a fasta format file.  
 4) Translation of nucleotide sequence. In this function, all nucleotide sequence in the uploaded file will be translated to corresponding amino acid sequence separately. All amino acid sequences will be output in a fasta format file.  
-5) GC content plot. In this function, all sequences in the upload file will be merged into one sequence, and the GC content changes will be ploted over this one sequence. The window size and step will be defined by user.  
+5) GC content plot. In this function, all sequences in the upload file will be merged into one sequence, and the GC content changes will be plotted over this one sequence. The window size and step will be defined by user.  
 
 ## Files included
-In this application, there are nultiple files:  
-1) A python script that can activate web application.  
+In this application, there are multiple files:  
+1) A python script that can activate web application: BSA_toolbox.py  
 2) A readme file that contains the introduction and usage method of this application.  
 3) A templates folder that contains all html scripts.  
 4) A static folder that will contains the latest output results file on the web application. Existing files are reference output of the example files in example_file folder. The files in this folder will be overwritten after the user starts application.  
@@ -23,7 +23,7 @@ In this application, there are nultiple files:
 ### Download or clone application to your own directory
 ```shell
 # clone application through terminal
-git clone https://github.com/YaliZhang98/Binp29_final_project.git
+git clone https://github.com/YaliZhang98/BSA-toolbox.git
 ```
 
 ### Installation of packages used in application
@@ -47,14 +47,14 @@ conda -V # it is success if there is a version of conda
 Here will install Flask used in python for building web applications. The  numpy required for calculation in python. And the matplotlib needed for plotting in python.  
 ```shell
 # install the Flask package in a virtual environment using conda
-conda create -n flaskenv python=3.6 flask
+conda create -n flaskenv flask
 
 # activate virtual flaskenv environment
 conda activate flaskenv 
 
 # check whether flaskenv package was installed successfully
 flask --version
-#Python 3.6.13
+#Python 3.8.5
 #Flask 1.1.2
 #Werkzeug 1.0.1
 
@@ -65,7 +65,7 @@ pip install matplotlib
 
 ### Start web application
 ```shell
-python sequence_analysis_toolbox.py
+python BSA_toolbox.py
 # Press "Ctrl + click" to open the web of application
 # Press "Ctrl + C" to quit
 ```
